@@ -1613,16 +1613,15 @@
               </div>
             </div>
           </div>
-
           <div class="col-lg-6">
             <div class="contact-form-wrapper">
               <div class="form-header">
                 <h3>Send Us a Message</h3>
                 <p>Tell us about your AI transformation needs and we'll get back to you within 24 hours.</p>
               </div>
-              
-              <!-- Updated form for Formspree -->
-              <form action="https://formspree.io/f/mwpvpgnb" method="POST" class="php-email-form">
+
+              <!-- Updated Formspree form -->
+              <form action="https://formspree.io/f/mwpvpgnb" method="POST" class="php-email-form" id="contact-form">
                 <div class="row">
                   <div class="col-md-6 form-group">
                     <div class="input-group">
@@ -1660,15 +1659,16 @@
                   </div>
                 </div>
 
-                <!-- Formspree requires this to prevent bots -->
+                <!-- Optional hidden fields for better emails -->
                 <input type="hidden" name="_subject" value="New message from your website!">
                 <input type="hidden" name="_captcha" value="false">
 
                 <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                  <div class="loading" style="display:none;">Loading</div>
+                  <div class="error-message" style="display:none;color:red;"></div>
+                  <div class="sent-message" style="display:none;color:green;">Your message has been sent. Thank you!</div>
                 </div>
+
                 <div class="text-center">
                   <button type="submit" class="submit-btn">
                     <span>Send Message</span>
@@ -1678,6 +1678,47 @@
               </form>
             </div>
           </div><!-- End Contact Form -->
+
+          <!-- AJAX handler for Formspree -->
+          <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("contact-form");
+            const loading = form.querySelector(".loading");
+            const errorMessage = form.querySelector(".error-message");
+            const sentMessage = form.querySelector(".sent-message");
+
+            form.addEventListener("submit", async function (e) {
+              e.preventDefault();
+
+              loading.style.display = "block";
+              errorMessage.style.display = "none";
+              sentMessage.style.display = "none";
+
+              try {
+                const response = await fetch(form.action, {
+                  method: "POST",
+                  body: new FormData(form),
+                  headers: { 'Accept': 'application/json' }
+                });
+
+                loading.style.display = "none";
+
+                if (response.ok) {
+                  sentMessage.style.display = "block";
+                  form.reset();
+                } else {
+                  const data = await response.json();
+                  errorMessage.textContent = data.error || "Oops! Something went wrong.";
+                  errorMessage.style.display = "block";
+                }
+              } catch (err) {
+                loading.style.display = "none";
+                errorMessage.textContent = "Network error. Please try again.";
+                errorMessage.style.display = "block";
+              }
+            });
+          });
+          </script>
 
 
         </div>
