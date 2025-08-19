@@ -1621,7 +1621,8 @@
                 <p>Tell us about your AI transformation needs and we'll get back to you within 24 hours.</p>
               </div>
               
-              <form action="forms/contact.php" method="post" class="php-email-form">
+              <!-- Updated form for Formspree -->
+              <form action="https://formspree.io/f/mwpvpgnb" method="POST" class="php-email-form">
                 <div class="row">
                   <div class="col-md-6 form-group">
                     <div class="input-group">
@@ -1640,6 +1641,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="form-group mt-3">
                   <div class="input-group">
                     <span class="input-icon">
@@ -1648,6 +1650,7 @@
                     <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                   </div>
                 </div>
+
                 <div class="form-group mt-3">
                   <div class="input-group">
                     <span class="input-icon">
@@ -1656,6 +1659,11 @@
                     <textarea class="form-control" name="message" placeholder="Tell us about your project..." required></textarea>
                   </div>
                 </div>
+
+                <!-- Formspree requires this to prevent bots -->
+                <input type="hidden" name="_subject" value="New message from your website!">
+                <input type="hidden" name="_captcha" value="false">
+
                 <div class="my-3">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
@@ -1670,6 +1678,7 @@
               </form>
             </div>
           </div><!-- End Contact Form -->
+
 
         </div>
 
