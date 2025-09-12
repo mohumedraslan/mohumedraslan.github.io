@@ -104,6 +104,22 @@
   new PureCounter();
 
   /**
+   * Initialize AOS (Animate On Scroll)
+   */
+  function initAOS() {
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false,
+      offset: 100
+    });
+  }
+
+  // Initialize AOS when page loads
+  window.addEventListener('load', initAOS);
+
+  /**
    * Init swiper sliders
    */
   function initSwiper() {
@@ -203,5 +219,94 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
+
+  /**
+   * Smooth scrolling for anchor links
+   */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  /**
+   * Add hover effects to feature cards and buttons
+   */
+  document.querySelectorAll('.feature-item, .pricing-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-5px)';
+      this.style.transition = 'transform 0.3s ease';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+    });
+  });
+
+  /**
+   * Enhanced button hover effects
+   */
+  function addInteractiveEffects() {
+    // Button hover effects
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+        this.style.transition = 'transform 0.2s ease';
+      });
+      
+      btn.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+      });
+    });
+
+    // Feature card hover effects
+    document.querySelectorAll('.feature-item').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.transition = 'transform 0.3s ease';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+
+    // Pricing card hover effects
+    document.querySelectorAll('.pricing-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px)';
+        this.style.transition = 'transform 0.3s ease';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+
+    // Step item hover effects
+    document.querySelectorAll('.step-item').forEach(step => {
+      step.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateX(10px)';
+        this.style.transition = 'transform 0.3s ease';
+      });
+      
+      step.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateX(0)';
+      });
+    });
+  }
+
+  // Initialize interactive effects when DOM is loaded
+  document.addEventListener('DOMContentLoaded', addInteractiveEffects);
+  
+  // Re-initialize after dynamic content loads
+  window.addEventListener('load', addInteractiveEffects);
 
 })();
